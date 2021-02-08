@@ -8,11 +8,10 @@ void string_replace(char* dest, const char* find, const char* replace)
 	char save_dest[1024] = { NULL };
 	strcpy(save_dest, dest);
 
-	auto dest_legnth = strlen(dest);
 	auto replace_length = strlen(replace);
 	auto find_length = strlen(find);
 
-	for (int i = 0; i < dest_legnth; i++)
+	for (int i = 0; i < strlen(dest); i++)
 	{
 		auto founded = strstr(dest, find);
 
@@ -22,8 +21,9 @@ void string_replace(char* dest, const char* find, const char* replace)
 		if (strcmp(dest + i, founded) != NULL)
 			continue;
 
-		memmove(dest + i, replace, dest_legnth + replace_length);
-		memcpy(dest + strlen(dest), save_dest + i + find_length, dest_legnth + i + find_length);
+		memmove(dest + i, replace, strlen(dest) + replace_length);
+		memcpy(dest + strlen(dest), save_dest + i + find_length, strlen(save_dest) + i + find_length);
+		strcpy(save_dest, dest);
 	}
 }
 

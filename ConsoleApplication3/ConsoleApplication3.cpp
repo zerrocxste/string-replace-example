@@ -1,11 +1,12 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <Windows.h>
 
 void string_replace(char* dest, const char* find, const char* replace)
 {
-	char save_dest[1024] = { NULL };
+	char* save_dest = new char[strlen(dest)];
+
 	strcpy(save_dest, dest);
 
 	auto replace_length = strlen(replace);
@@ -23,6 +24,8 @@ void string_replace(char* dest, const char* find, const char* replace)
 
 		memmove(dest + i, replace, strlen(dest) + replace_length);
 		memcpy(dest + strlen(dest), save_dest + i + find_length, strlen(save_dest) + i + find_length);
+		delete[] save_dest;
+		save_dest = new char[strlen(dest)];
 		strcpy(save_dest, dest);
 	}
 }
@@ -34,4 +37,6 @@ int main()
 	string_replace(my_str, "kruta!!!!!!!!!", "xuinya...");
 
 	std::cout << my_str << std::endl;
+
+	system("pause");
 }
